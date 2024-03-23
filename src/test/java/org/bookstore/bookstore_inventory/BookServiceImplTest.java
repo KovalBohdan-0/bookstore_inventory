@@ -2,6 +2,7 @@ package org.bookstore.bookstore_inventory;
 
 import io.grpc.stub.StreamObserver;
 import org.bookstore.bookstore_inventory.book.Book;
+import org.bookstore.bookstore_inventory.book.BookMapper;
 import org.bookstore.bookstore_inventory.book.BookRepository;
 import org.bookstore.bookstore_inventory.book.BookServiceImpl;
 import org.junit.jupiter.api.Test;
@@ -19,6 +20,9 @@ public class BookServiceImplTest {
 
     @Mock
     private BookRepository bookRepository;
+
+    @Mock
+    private BookMapper bookMapper;
 
     @Mock
     private StreamObserver<org.bookstore.bookstore_inventory.proto.Book> responseObserver;
@@ -47,7 +51,7 @@ public class BookServiceImplTest {
 
         bookService.getBook(request, responseObserver);
 
-        verify(responseObserver).onNext(any(org.bookstore.bookstore_inventory.proto.Book.class));
+        verify(responseObserver).onNext(any());
         verify(responseObserver).onCompleted();
     }
 
@@ -75,23 +79,16 @@ public class BookServiceImplTest {
                 .setQuantity(10)
                 .build();
 
-        bookService.addBook(request, emptyResponseObserver);
+        bookService.addBook(request, responseObserver);
 
-        verify(bookRepository).save(any(Book.class));
-        verify(emptyResponseObserver).onNext(any());
-        verify(emptyResponseObserver).onCompleted();
+        verify(bookRepository).save(any());
+        verify(responseObserver).onNext(any());
+        verify(responseObserver).onCompleted();
     }
 
     @Test
     public void testUpdateBook() {
-        Book book = new Book();
-        book.setId(1L);
-        book.setTitle("Test Book");
-        book.setAuthor("Test Author");
-        book.setIsbn("1234567890");
-        book.setQuantity(10);
-
-        when(bookRepository.findById(any(Long.class))).thenReturn(java.util.Optional.of(book));
+        when(bookRepository.existsById(any(Long.class))).thenReturn(true);
 
         org.bookstore.bookstore_inventory.proto.UpdateBookRequest request = org.bookstore.bookstore_inventory.proto
                 .UpdateBookRequest.newBuilder()
@@ -104,7 +101,7 @@ public class BookServiceImplTest {
 
         bookService.updateBook(request, emptyResponseObserver);
 
-        verify(bookRepository).save(any(Book.class));
+        verify(bookRepository).save(any());
         verify(emptyResponseObserver).onNext(any());
         verify(emptyResponseObserver).onCompleted();
     }

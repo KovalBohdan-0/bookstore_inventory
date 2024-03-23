@@ -12,21 +12,21 @@ import net.devh.boot.grpc.server.service.GrpcService;
 public class BookServiceImpl extends BookServiceGrpc.BookServiceImplBase {
 
     private final BookRepository bookRepository;
+    private final BookMapper bookMapper;
 
-    public BookServiceImpl(BookRepository bookRepository) {
+    public BookServiceImpl(BookRepository bookRepository, BookMapper bookMapper) {
         this.bookRepository = bookRepository;
+        this.bookMapper = bookMapper;
     }
 
     @Override
     @Transactional
-    public void addBook(AddBookRequest request, io.grpc.stub.StreamObserver<Empty> responseObserver) {
-        Book book = new Book();
-        book.setTitle(request.getTitle());
-        book.setAuthor(request.getAuthor());
-        book.setIsbn(request.getIsbn());
-        book.setQuantity(request.getQuantity());
-        bookRepository.save(book);
-        responseObserver.onNext(Empty.newBuilder().build());
+    public void addBook(AddBookRequest request, io.grpc.stub.StreamObserver<org.bookstore.bookstore_inventory
+            .proto.Book> responseObserver) {
+        Book book = bookMapper.toBook(request);
+        book = bookRepository.save(book);
+        org.bookstore.bookstore_inventory.proto.Book response = bookMapper.toProtoBook(book);
+        responseObserver.onNext(response);
         responseObserver.onCompleted();
     }
 
@@ -34,12 +34,11 @@ public class BookServiceImpl extends BookServiceGrpc.BookServiceImplBase {
     @Transactional
     public void updateBook(UpdateBookRequest request, io.grpc.stub.StreamObserver<Empty> responseObserver) {
         try {
-            Book book = bookRepository.findById(request.getId())
-                    .orElseThrow(() -> new BookNotFoundException("Book not found"));
-            book.setTitle(request.getTitle());
-            book.setAuthor(request.getAuthor());
-            book.setIsbn(request.getIsbn());
-            book.setQuantity(request.getQuantity());
+            if (!bookRepository.existsById(request.getId())) {
+                throw new BookNotFoundException("Book not found");
+            }
+
+            Book book = bookMapper.toBook(request);
             bookRepository.save(book);
             responseObserver.onNext(Empty.newBuilder().build());
             responseObserver.onCompleted();
@@ -63,14 +62,7 @@ public class BookServiceImpl extends BookServiceGrpc.BookServiceImplBase {
         try {
             Book book = bookRepository.findById(request.getId())
                     .orElseThrow(() -> new BookNotFoundException("Book not found"));
-            org.bookstore.bookstore_inventory.proto.Book response = org.bookstore.bookstore_inventory.proto.Book
-                    .newBuilder()
-                    .setId(book.getId())
-                    .setTitle(book.getTitle())
-                    .setAuthor(book.getAuthor())
-                    .setIsbn(book.getIsbn())
-                    .setQuantity(book.getQuantity())
-                    .build();
+            org.bookstore.bookstore_inventory.proto.Book response = bookMapper.toProtoBook(book);
             responseObserver.onNext(response);
             responseObserver.onCompleted();
         } catch (BookNotFoundException e) {

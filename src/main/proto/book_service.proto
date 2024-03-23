@@ -17,7 +17,7 @@ message Book {
 }
 
 service BookService {
-  rpc AddBook(AddBookRequest) returns (google.protobuf.Empty) {}
+  rpc AddBook(AddBookRequest) returns (Book) {}
   rpc UpdateBook(UpdateBookRequest) returns (google.protobuf.Empty) {}
   rpc DeleteBook(DeleteBookRequest) returns (google.protobuf.Empty) {}
   rpc GetBook(GetBookRequest) returns (Book) {}
@@ -36,7 +36,6 @@ message UpdateBookRequest {
   string author = 3;
   string isbn = 4;
   int32 quantity = 5;
-
 }
 
 message DeleteBookRequest {

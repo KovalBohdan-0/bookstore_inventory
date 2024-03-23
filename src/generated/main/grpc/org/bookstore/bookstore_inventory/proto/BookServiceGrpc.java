@@ -16,28 +16,28 @@ public final class BookServiceGrpc {
 
   // Static method descriptors that strictly reflect the proto.
   private static volatile io.grpc.MethodDescriptor<org.bookstore.bookstore_inventory.proto.AddBookRequest,
-      com.google.protobuf.Empty> getAddBookMethod;
+      org.bookstore.bookstore_inventory.proto.Book> getAddBookMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "AddBook",
       requestType = org.bookstore.bookstore_inventory.proto.AddBookRequest.class,
-      responseType = com.google.protobuf.Empty.class,
+      responseType = org.bookstore.bookstore_inventory.proto.Book.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
   public static io.grpc.MethodDescriptor<org.bookstore.bookstore_inventory.proto.AddBookRequest,
-      com.google.protobuf.Empty> getAddBookMethod() {
-    io.grpc.MethodDescriptor<org.bookstore.bookstore_inventory.proto.AddBookRequest, com.google.protobuf.Empty> getAddBookMethod;
+      org.bookstore.bookstore_inventory.proto.Book> getAddBookMethod() {
+    io.grpc.MethodDescriptor<org.bookstore.bookstore_inventory.proto.AddBookRequest, org.bookstore.bookstore_inventory.proto.Book> getAddBookMethod;
     if ((getAddBookMethod = BookServiceGrpc.getAddBookMethod) == null) {
       synchronized (BookServiceGrpc.class) {
         if ((getAddBookMethod = BookServiceGrpc.getAddBookMethod) == null) {
           BookServiceGrpc.getAddBookMethod = getAddBookMethod =
-              io.grpc.MethodDescriptor.<org.bookstore.bookstore_inventory.proto.AddBookRequest, com.google.protobuf.Empty>newBuilder()
+              io.grpc.MethodDescriptor.<org.bookstore.bookstore_inventory.proto.AddBookRequest, org.bookstore.bookstore_inventory.proto.Book>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "AddBook"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   org.bookstore.bookstore_inventory.proto.AddBookRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.google.protobuf.Empty.getDefaultInstance()))
+                  org.bookstore.bookstore_inventory.proto.Book.getDefaultInstance()))
               .setSchemaDescriptor(new BookServiceMethodDescriptorSupplier("AddBook"))
               .build();
         }
@@ -190,7 +190,7 @@ public final class BookServiceGrpc {
     /**
      */
     default void addBook(org.bookstore.bookstore_inventory.proto.AddBookRequest request,
-        io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
+        io.grpc.stub.StreamObserver<org.bookstore.bookstore_inventory.proto.Book> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getAddBookMethod(), responseObserver);
     }
 
@@ -246,7 +246,7 @@ public final class BookServiceGrpc {
     /**
      */
     public void addBook(org.bookstore.bookstore_inventory.proto.AddBookRequest request,
-        io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
+        io.grpc.stub.StreamObserver<org.bookstore.bookstore_inventory.proto.Book> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getAddBookMethod(), getCallOptions()), request, responseObserver);
     }
@@ -294,7 +294,7 @@ public final class BookServiceGrpc {
 
     /**
      */
-    public com.google.protobuf.Empty addBook(org.bookstore.bookstore_inventory.proto.AddBookRequest request) {
+    public org.bookstore.bookstore_inventory.proto.Book addBook(org.bookstore.bookstore_inventory.proto.AddBookRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getAddBookMethod(), getCallOptions(), request);
     }
@@ -339,7 +339,7 @@ public final class BookServiceGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<com.google.protobuf.Empty> addBook(
+    public com.google.common.util.concurrent.ListenableFuture<org.bookstore.bookstore_inventory.proto.Book> addBook(
         org.bookstore.bookstore_inventory.proto.AddBookRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getAddBookMethod(), getCallOptions()), request);
@@ -394,7 +394,7 @@ public final class BookServiceGrpc {
       switch (methodId) {
         case METHODID_ADD_BOOK:
           serviceImpl.addBook((org.bookstore.bookstore_inventory.proto.AddBookRequest) request,
-              (io.grpc.stub.StreamObserver<com.google.protobuf.Empty>) responseObserver);
+              (io.grpc.stub.StreamObserver<org.bookstore.bookstore_inventory.proto.Book>) responseObserver);
           break;
         case METHODID_UPDATE_BOOK:
           serviceImpl.updateBook((org.bookstore.bookstore_inventory.proto.UpdateBookRequest) request,
@@ -431,7 +431,7 @@ public final class BookServiceGrpc {
           io.grpc.stub.ServerCalls.asyncUnaryCall(
             new MethodHandlers<
               org.bookstore.bookstore_inventory.proto.AddBookRequest,
-              com.google.protobuf.Empty>(
+              org.bookstore.bookstore_inventory.proto.Book>(
                 service, METHODID_ADD_BOOK)))
         .addMethod(
           getUpdateBookMethod(),

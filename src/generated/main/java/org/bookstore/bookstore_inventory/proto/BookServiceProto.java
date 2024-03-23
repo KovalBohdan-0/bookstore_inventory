@@ -59,19 +59,20 @@ public final class BookServiceProto {
       "d\030\001 \001(\003\022\r\n\005title\030\002 \001(\t\022\016\n\006author\030\003 \001(\t\022\014" +
       "\n\004isbn\030\004 \001(\t\022\020\n\010quantity\030\005 \001(\005\"\037\n\021Delete" +
       "BookRequest\022\n\n\002id\030\001 \001(\003\"\034\n\016GetBookReques" +
-      "t\022\n\n\002id\030\001 \001(\0032\250\003\n\013BookService\022\\\n\007AddBook" +
+      "t\022\n\n\002id\030\001 \001(\0032\277\003\n\013BookService\022s\n\007AddBook" +
       "\0227.org.bookstore.bookstore_inventory.pro" +
-      "to.AddBookRequest\032\026.google.protobuf.Empt" +
-      "y\"\000\022b\n\nUpdateBook\022:.org.bookstore.bookst" +
-      "ore_inventory.proto.UpdateBookRequest\032\026." +
-      "google.protobuf.Empty\"\000\022b\n\nDeleteBook\022:." +
+      "to.AddBookRequest\032-.org.bookstore.bookst" +
+      "ore_inventory.proto.Book\"\000\022b\n\nUpdateBook" +
+      "\022:.org.bookstore.bookstore_inventory.pro" +
+      "to.UpdateBookRequest\032\026.google.protobuf.E" +
+      "mpty\"\000\022b\n\nDeleteBook\022:.org.bookstore.boo" +
+      "kstore_inventory.proto.DeleteBookRequest" +
+      "\032\026.google.protobuf.Empty\"\000\022s\n\007GetBook\0227." +
       "org.bookstore.bookstore_inventory.proto." +
-      "DeleteBookRequest\032\026.google.protobuf.Empt" +
-      "y\"\000\022s\n\007GetBook\0227.org.bookstore.bookstore" +
-      "_inventory.proto.GetBookRequest\032-.org.bo" +
-      "okstore.bookstore_inventory.proto.Book\"\000" +
-      "B=\n\'org.bookstore.bookstore_inventory.pr" +
-      "otoB\020BookServiceProtoP\001b\006proto3"
+      "GetBookRequest\032-.org.bookstore.bookstore" +
+      "_inventory.proto.Book\"\000B=\n\'org.bookstore" +
+      ".bookstore_inventory.protoB\020BookServiceP" +
+      "rotoP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

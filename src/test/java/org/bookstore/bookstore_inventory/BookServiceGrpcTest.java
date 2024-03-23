@@ -2,9 +2,11 @@ package org.bookstore.bookstore_inventory;
 
 import com.google.protobuf.Empty;
 import io.grpc.internal.testing.StreamRecorder;
+import org.bookstore.bookstore_inventory.book.BookMapper;
 import org.bookstore.bookstore_inventory.book.BookRepository;
 import org.bookstore.bookstore_inventory.book.BookServiceImpl;
 import org.bookstore.bookstore_inventory.proto.AddBookRequest;
+import org.bookstore.bookstore_inventory.proto.Book;
 import org.bookstore.bookstore_inventory.proto.DeleteBookRequest;
 import org.citrusframework.GherkinTestActionRunner;
 import org.citrusframework.annotations.CitrusResource;
@@ -48,10 +50,12 @@ public class BookServiceGrpcTest extends BaseIntegrationTest {
     private BookServiceImpl underTest;
     @Autowired
     private BookRepository bookRepository;
+    @Autowired
+    private BookMapper bookMapper;
 
     @BeforeEach
     public void setup() {
-        underTest = new BookServiceImpl(bookRepository);
+        underTest = new BookServiceImpl(bookRepository, bookMapper);
         bookRepository.deleteAll();
     }
 
@@ -76,12 +80,11 @@ public class BookServiceGrpcTest extends BaseIntegrationTest {
     @Test
     @CitrusTest
     public void testAddBook(@CitrusResource GherkinTestActionRunner runner) {
-        StreamRecorder<Empty> observer = StreamRecorder.create();
+        StreamRecorder<Book> observer = StreamRecorder.create();
         underTest.addBook(ADD_BOOK_REQUEST, observer);
 
-        List<Empty> results = observer.getValues();
+        List<Book> results = observer.getValues();
         assertEquals(1, results.size());
-        assertEquals(Empty.newBuilder().build(), results.getFirst());
         runner.$(query(dataSource())
                 .statement("select * from book where title = 'Title' " +
                         "and author = 'Author' and isbn = 'ISBN' and quantity = 1")
